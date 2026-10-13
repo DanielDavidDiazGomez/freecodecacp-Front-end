@@ -1,79 +1,91 @@
-import React, { useState, useMemo } from "react";
 
-const RATES = {
-  USD: 1,
-  EUR: 0.92,
-  GBP: 0.78,
-  JPY: 156.7,
-};
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import "./estilos.css";
 
-const CURRENCIES = Object.keys(RATES);
+export function Board() {
+  const [squares, setSquares] = useState(Array(9).fill(""));
+  const [xIsNext, setXIsNext] = useState(true);
 
-export const CurrencyConverter = () => {
-  const [amount, setAmount] = useState(1);
-  const [fromCurrency, setFromCurrency] = useState("USD");
-  const [toCurrency, setToCurrency] = useState("EUR");
+  const combinations = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
 
-  // Depende solo de amount y fromCurrency: cambiar toCurrency no recalcula.
-  const convertedAmounts = useMemo(() => {
-    const inBase = Number(amount) / RATES[fromCurrency];
-    const result = {};
-    CURRENCIES.forEach((code) => {
-      result[code] = inBase * RATES[code];
-    });
-    return result;
-  }, [amount, fromCurrency]);
+  let winner = null;
 
-  const result = `${convertedAmounts[toCurrency].toFixed(2)} ${toCurrency}`;
+  for (const [a, b, c] of combinations) {
+    if (
+      squares[a] !== "" &&
+      squares[a] === squares[b] &&
+      squares[a] === squares[c]
+    ) {
+      winner = squares[a];
+      break;
+    }
+  }
+
+  const draw = !winner && squares.every((square) => square !== "");
+
+  function handleClick(index) {
+    if (squares[index] !== "" || winner || draw) {
+      return;
+    }
+
+    const nextSquares = [...squares];
+    nextSquares[index] = xIsNext ? "X" : "O";
+
+    setSquares(nextSquares);
+    setXIsNext(!xIsNext);
+  }
+
+  function resetGame() {
+    setSquares(Array(9).fill(""));
+    setXIsNext(true);
+  }
 
   return (
-    <div className="converter">
-      <h1 className="title">💱 Cambio Rápido</h1>
+    <main className="game">
+      <h1>Tres en Raya</h1>
 
-      <label className="field">
-        <span>Cantidad</span>
-        <input
-          type="number"
-          value={amount}
-          min="0"
-          step="any"
-          onChange={(e) => setAmount(e.target.value === "" ? 0 : e.target.value)}
-        />
-      </label>
+      <p id="status" aria-live="polite">
+        {winner
+          ? `Winner: ${winner}`
+          : draw
+          ? "It's a draw!"
+          : `Turn: ${xIsNext ? "X" : "O"}`}
+      </p>
 
-      <div className="row">
-        <label className="field">
-          <span>De</span>
-          <select
-            value={fromCurrency}
-            onChange={(e) => setFromCurrency(e.target.value)}
+      <div className="board">
+        {squares.map((square, index) => (
+          <button
+            type="button"
+            className="square"
+            key={index}
+            onClick={() => handleClick(index)}
           >
-            {CURRENCIES.map((code) => (
-              <option key={code} value={code}>
-                {code}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="field">
-          <span>A</span>
-          <select
-            value={toCurrency}
-            onChange={(e) => setToCurrency(e.target.value)}
-          >
-            {CURRENCIES.map((code) => (
-              <option key={code} value={code}>
-                {code}
-              </option>
-            ))}
-          </select>
-        </label>
+            {square}
+          </button>
+        ))}
       </div>
 
-      <p className="result" data-testid="converted-amount">
-        {result}
-      </p>
-    </div>
+      <button id="reset" type="button" onClick={resetGame}>
+        Reset
+      </button>
+    </main>
   );
-};
+}
+
+export default Board;
+
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  createRoot(rootElement).render(<Board />);
+}
