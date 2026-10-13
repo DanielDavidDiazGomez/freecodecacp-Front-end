@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería Fotográfica</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-white">
+  <header class="text-center px-6 py-10">
+    <p class="text-sm uppercase tracking-[0.3em] text-amber-400 mb-3">
+      Colección visual
+    </p>
+    <h1 class="text-4xl font-bold mb-4">Momentos del mundo</h1>
+    <p class="text-slate-400 text-base">
+      Una exposición de lugares extraordinarios.
+    </p>
+  </header>
+
+  <main class="main-container grid grid-cols-1 md:grid-cols-3 gap-6 p-6 max-w-6xl mx-auto">
+    <article class="card rounded-xl p-4 bg-slate-900 shadow-lg">
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/labs/colosseo.jpg"
+        alt="El Coliseo romano en Italia"
+        class="rounded-lg w-full h-64 object-cover"
+      >
+      <h2 class="subheading font-bold text-xl mt-4 mb-2">
+        Historia eterna
+      </h2>
+      <p class="description text-sm text-slate-300">
+        El Coliseo de Roma conserva la grandeza de una civilización que dejó su huella en el mundo.
+      </p>
+    </article>
+
+    <article class="card rounded-xl p-4 bg-slate-900 shadow-lg">
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/labs/alps.jpg"
+        alt="Montañas de los Alpes rodeadas de naturaleza"
+        class="rounded-lg w-full h-64 object-cover"
+      >
+      <h2 class="subheading font-bold text-xl mt-4 mb-2">
+        Silencio en las alturas
+      </h2>
+      <p class="description text-sm text-slate-300">
+        Los Alpes ofrecen paisajes majestuosos donde las montañas y el cielo parecen encontrarse.
+      </p>
+    </article>
+
+    <article class="card rounded-xl p-4 bg-slate-900 shadow-lg">
+      <img
+        src="https://cdn.freecodecamp.org/curriculum/labs/sea.jpg"
+        alt="Mar azul que se extiende hasta el horizonte"
+        class="rounded-lg w-full h-64 object-cover"
+      >
+      <h2 class="subheading font-bold text-xl mt-4 mb-2">
+        La calma del océano
+      </h2>
+      <p class="description text-sm text-slate-300">
+        El mar nos recuerda la inmensidad de la naturaleza y la belleza de los momentos tranquilos.
+      </p>
+    </article>
+  </main>
+
+  <footer class="text-center text-slate-500 text-sm py-6">
+    Exposición fotográfica · 2026
+  </footer>
+</body>
+</html>
