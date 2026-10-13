@@ -1,0 +1,132 @@
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --ink: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #fbbf24;
+  --accent-ink: #1f2937;
+  --danger: #f87171;
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1e293b, var(--bg) 60%);
+  color: var(--ink);
+  font-family: "Segoe UI", system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.app {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+header { text-align: center; }
+h1 { margin: 0; letter-spacing: 0.04em; color: var(--accent); }
+.counter { margin: 0.25rem 0 0; color: var(--muted); }
+
+/* Tarjeta 3D */
+.flashcard {
+  perspective: 1000px;
+  height: 240px;
+  cursor: pointer;
+  outline: none;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flashcard.flipped .card-inner { transform: rotateY(180deg); }
+.flashcard:focus-visible .card-inner { box-shadow: 0 0 0 3px var(--accent); border-radius: var(--radius); }
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  overflow: auto;
+}
+
+.face p { margin: 0.5rem 0 0; font-size: 1.3rem; line-height: 1.4; word-break: break-word; }
+
+.front { background: var(--panel); border: 2px solid #334155; }
+.back  { background: var(--accent); color: var(--accent-ink); transform: rotateY(180deg); }
+
+.tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+/* Controles */
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+
+button {
+  font: inherit;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid #475569;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.15s, background 0.15s;
+}
+button:hover { background: #334155; transform: translateY(-1px); }
+button.danger { border-color: var(--danger); color: var(--danger); }
+button.danger:hover { background: rgba(248, 113, 113, 0.15); }
+button.primary { background: var(--accent); color: var(--accent-ink); border: none; font-weight: 600; }
+button.primary:hover { background: #fcd34d; }
+
+/* Formulario */
+.entry-form {
+  background: var(--panel);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.entry-form h2 { margin: 0 0 0.5rem; font-size: 1.1rem; }
+label { font-size: 0.85rem; color: var(--muted); }
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 0.7rem;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background: var(--bg);
+  color: var(--ink);
+  font: inherit;
+}
+textarea:focus { outline: 2px solid var(--accent); }
+
+.form-error { min-height: 1.2em; margin: 0; color: var(--danger); font-size: 0.9rem; }
