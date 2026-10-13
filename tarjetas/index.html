@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mazo de Estudio</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>Mazo de Estudio</h1>
+      <p id="counter" class="counter">0 / 0</p>
+    </header>
+
+    <section class="stage">
+      <div id="flashcard" class="flashcard" tabindex="0" role="button" aria-label="Voltear tarjeta">
+        <div class="card-inner">
+          <div class="face front">
+            <span class="tag">Pregunta</span>
+            <p id="card-front-text"></p>
+          </div>
+          <div class="face back">
+            <span class="tag">Respuesta</span>
+            <p id="card-back-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="prev-btn" type="button">← Anterior</button>
+        <button id="delete-btn" type="button" class="danger">Eliminar</button>
+        <button id="next-btn" type="button">Siguiente →</button>
+      </div>
+    </section>
+
+    <form id="entry-form" class="entry-form" novalidate>
+      <h2>Nueva tarjeta</h2>
+      <label for="front-text">Pregunta</label>
+      <textarea id="front-text" rows="3" placeholder="¿Qué quieres recordar?"></textarea>
+
+      <label for="back-text">Respuesta</label>
+      <textarea id="back-text" rows="3" placeholder="La respuesta correcta"></textarea>
+
+      <p id="form-error" class="form-error" role="alert"></p>
+      <button type="submit" class="primary">Añadir al mazo</button>
+    </form>
+  </main>
+
+  <script src="index.ts"></script>
+</body>
+</html>
