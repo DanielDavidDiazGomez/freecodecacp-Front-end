@@ -1,61 +1,73 @@
-import React, { useState, useMemo } from "react";
 
-const RATES = {
+const { useState, useMemo } = React;
+
+const exchangeRates = {
   USD: 1,
   EUR: 0.92,
   GBP: 0.78,
-  JPY: 156.7,
+  JPY: 156.7
 };
 
-const CURRENCIES = Object.keys(RATES);
+export function CurrencyConverter() {
+  const [amount, setAmount] = useState(10);
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("EUR");
 
-export const CurrencyConverter = () => {
-  const [amount, setAmount] = useState(1);
-  const [from, setFrom] = useState("USD");
-  const [to, setTo] = useState("EUR");
-
-  // Solo se recalcula si cambian la cantidad o la moneda de origen.
+  // Calcula todas las conversiones solamente cuando cambia
+  // la cantidad o la moneda de origen.
   const convertedAmounts = useMemo(() => {
-    const inUsd = (Number(amount) || 0) / RATES[from];
-    return Object.fromEntries(
-      CURRENCIES.map((code) => [code, inUsd * RATES[code]])
-    );
-  }, [amount, from]);
+    const value = Number(amount) || 0;
+    const amounts = {};
 
-  const result = `${convertedAmounts[to].toFixed(2)} ${to}`;
+    for (const currency in exchangeRates) {
+      amounts[currency] =
+        (value / exchangeRates[fromCurrency]) *
+        exchangeRates[currency];
+    }
+
+    return amounts;
+  }, [amount, fromCurrency]);
 
   return (
-    <div className="converter">
-      <h1>Convertidor de divisas</h1>
+    <div>
+      <h1>Currency Converter</h1>
 
+      <label htmlFor="amount">Amount</label>
       <input
+        id="amount"
         type="number"
-        min="0"
-        step="any"
         value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        aria-label="Cantidad"
+        onChange={(event) => setAmount(event.target.value)}
       />
 
-      <div className="selects">
-        <select value={from} onChange={(e) => setFrom(e.target.value)} aria-label="De">
-          {CURRENCIES.map((code) => (
-            <option key={code} value={code}>{code}</option>
-          ))}
-        </select>
+      <label htmlFor="fromCurrency">From</label>
+      <select
+        id="fromCurrency"
+        value={fromCurrency}
+        onChange={(event) => setFromCurrency(event.target.value)}
+      >
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="JPY">JPY</option>
+      </select>
 
-        <span className="arrow">→</span>
+      <label htmlFor="toCurrency">To</label>
+      <select
+        id="toCurrency"
+        value={toCurrency}
+        onChange={(event) => setToCurrency(event.target.value)}
+      >
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        <option value="JPY">JPY</option>
+      </select>
 
-        <select value={to} onChange={(e) => setTo(e.target.value)} aria-label="A">
-          {CURRENCIES.map((code) => (
-            <option key={code} value={code}>{code}</option>
-          ))}
-        </select>
-      </div>
-
-      <p className="result">{result}</p>
+      <p>
+        Converted Amount: {convertedAmounts[toCurrency].toFixed(2)}{" "}
+        {toCurrency}
+      </p>
     </div>
   );
-};
-
-export default CurrencyConverter;
+}
