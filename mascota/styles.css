@@ -1,0 +1,124 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Tektur", Arial, sans-serif;
+  color: #26324a;
+  background: linear-gradient(135deg, #dbeafe, #fce7f3);
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.panel {
+  width: 100%;
+  max-width: 460px;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 35px rgba(38, 50, 74, 0.15);
+  text-align: center;
+}
+
+.name-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+h1 {
+  margin-top: 0;
+  overflow-wrap: anywhere;
+}
+
+label {
+  text-align: left;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font: inherit;
+}
+
+button {
+  padding: 12px 16px;
+  border: none;
+  border-radius: 9px;
+  background: #7c3aed;
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #6d28d9;
+}
+
+.pet-name {
+  color: #7c3aed;
+}
+
+.pet-mood {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+.pet-mood span:first-child {
+  font-size: 64px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 24px 0;
+}
+
+.stat {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 6px;
+  border-radius: 10px;
+  background: #f5f3ff;
+}
+
+.stat-value {
+  color: #6d28d9;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 420px) {
+  .panel {
+    padding: 20px 14px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
